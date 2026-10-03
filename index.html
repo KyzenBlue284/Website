@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>System Security Scanner</title>
+<style>
+  *{box-sizing:border-box} body{margin:0;background:#090b10;color:#e8edf7;font-family:Inter,system-ui,Arial,sans-serif}
+  .wrap{min-height:100vh;display:grid;place-items:center;padding:24px}
+  .card{width:min(760px,100%);background:#11151d;border:1px solid #293142;border-radius:18px;box-shadow:0 20px 70px #0008;padding:28px}
+  .top{display:flex;align-items:center;gap:12px}.shield{font-size:32px}.title{font-size:22px;font-weight:800}
+  .muted{color:#8f9bad}.bar{height:14px;background:#252b36;border-radius:99px;overflow:hidden;margin:22px 0 12px}
+  .fill{height:100%;width:0;background:#36d399;border-radius:99px;transition:width .2s}
+  .status{font-family:ui-monospace,monospace;color:#aab4c5;min-height:24px}
+  .alert{display:none;margin-top:22px;padding:20px;border-radius:14px;background:#351318;border:1px solid #7d2734}
+  .alert h2{margin:0 0 8px;color:#ff6b7d}.alert p{margin:6px 0;color:#d9aab1}
+  button{margin-top:18px;padding:12px 16px;border:0;border-radius:10px;background:#e8edf7;color:#11151d;font-weight:800;cursor:pointer}
+  .prank{display:none;text-align:center;padding:30px}.prank h1{font-size:42px;margin:0 0 10px}.prank p{color:#aeb8c8;font-size:18px}
+  .small{font-size:12px;color:#697587;margin-top:18px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <main class="card" id="scanner">
+    <div class="top"><div class="shield">🛡️</div><div><div class="title">System Security Scanner</div><div class="muted">Deep scan • Local simulation</div></div></div>
+    <div class="bar"><div class="fill" id="fill"></div></div>
+    <div class="status" id="status">Initializing scan...</div>
+    <div class="alert" id="alert">
+      <h2>⚠️ THREAT DETECTED</h2>
+      <p>3 suspicious files were supposedly found.</p>
+      <p>System integrity: <b>COMPROMISED</b></p>
+      <button id="reveal">Continue</button>
+    </div>
+    <div class="small">This page is a harmless visual simulation. It does not scan, modify, upload, or delete anything.</div>
+  </main>
+  <section class="card prank" id="prank">
+    <div style="font-size:64px">😂</div>
+    <h1>YOU GOT TROLLED</h1>
+    <p>There was never a virus. This was just a fake security-screen prank.</p>
+    <p class="muted">Nothing was installed, scanned, changed, or uploaded.</p>
+  </section>
+</div>
+<script>
+const fill=document.getElementById('fill'), status=document.getElementById('status');
+const messages=["Checking system files...","Scanning startup entries...","Analyzing suspicious activity...","Checking browser cache...","Finalizing scan..."];
+let p=0;
+const timer=setInterval(()=>{
+  p+=Math.floor(Math.random()*9)+5; if(p>100)p=100;
+  fill.style.width=p+"%"; status.textContent=messages[Math.min(messages.length-1,Math.floor(p/22))]+" "+p+"%";
+  if(p===100){clearInterval(timer);status.textContent="Scan complete.";document.getElementById('alert').style.display='block';}
+},350);
+document.getElementById('reveal').onclick=()=>{
+  document.getElementById('scanner').style.display='none';
+  document.getElementById('prank').style.display='block';
+};
+</script>
+</body>
+</html>
